@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+
+
+{% block content %}
+<h1>posts:</h1>
+{% for post in posts %}
+<h2>
+      <a href="{{ post.get_absolute_url }}">
+        {{ post.title }}
+      </a>
+</h2>
+<p><img src="{{post.image.url}}" alt="image"></p>
+<p>{{ post.body|truncatewords:30 }}</p>
+<p>{{post.created_at}}</p>
+<p>{{post.author}}</p>
+
+{%empty%}
+<p>add post</p>
+
+{% endfor %}
+{% include 'pagination.html' with page=posts %}
+
+
+{% endblock content %}
