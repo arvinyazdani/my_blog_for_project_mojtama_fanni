@@ -47,9 +47,9 @@ class Post(models.Model):
     update = models.DateTimeField(auto_now=True)
     published = models.DateTimeField(default=timezone.now)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
-    
+    #tag manager
     tags = TaggableManager()
-    #managers
+    #data base managers
     objects = models.Manager()
     publishedmanager = PublishedManager()
 
@@ -81,11 +81,10 @@ class Comment(models.Model):
     creat_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     body = models.TextField()
-    active = models.BooleanField(default=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES,\
     default="draft")
 
-    #managers
+    #data base managers
     objects = models.Manager()
     publishedmanager = PublishedManager()
     

@@ -6,6 +6,17 @@
         {{ post.title }}
       </a>
 </h2>
+<p>
+there are similar posts by tag :
+{% for post in similar_post %}
+<a href="{{post.get_absolute_url}}"> {{post.title}} </a>
+{% if not forloop.last %},  {% endif %}
+{%empty%}
+there are no similar post yet 
+
+{% endfor %}
+
+</p>
 <h3><p>{{post.created_at}}</p>
 <p>{{post.author}}</p></h3>
 <p><img src="{{post.image}}" alt="image"></p>
@@ -15,6 +26,18 @@
 <button>
 <a href="{% url 'blog:post_share' post.id %}">share</a>
 </button>
+<form method="POST">
+{% csrf_token %}
+{{comment_form.as_p}}
+<button name="submit">add comment</button>
+</form>
+{% for cm in comments %}
+<p>creator is : {{cm.name}} </p>
+<p>{{cm.body}}</p>
+<p>{{cm.creat_at}}</p>
+<p>--------------------------</p>
+
+{% endfor %}
 
 
 
