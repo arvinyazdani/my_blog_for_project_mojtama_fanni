@@ -1,0 +1,18 @@
+<ul>
+    {% for obj in lastest %}
+    {% if request %}
+    <li>
+        <a href="{{obj.get_absolute_url}}">
+            {{obj.show}}
+        </a>
+    
+    </li>
+    {% else %}
+        <li>
+        {{obj.show}}
+        </li>
+
+    {% endif %}
+    
+    {% endfor %}
+</ul>

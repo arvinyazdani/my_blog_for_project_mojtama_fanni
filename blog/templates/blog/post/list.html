@@ -1,5 +1,5 @@
 {% extends 'blog/base.html' %}
-
+{% load blog_tags %}
 
 {% block content %}
 <h1>posts:</h1>
@@ -17,9 +17,10 @@
 {% if not forloop.last %}, {% endif %}
 {% endfor %}
 <p><img src="{{post.image.url}}" alt="image"></p>
-<p>{{ post.body|truncatewords:30 }}</p>
+<p>{{ post.body|markdown|truncatewords:30 }}</p>
 <p>{{post.created_at}}</p>
 <p>{{post.author}}</p>
+{% show_lastest_comment 3 post.id %}
 
 {%empty%}
 <p>add post</p>

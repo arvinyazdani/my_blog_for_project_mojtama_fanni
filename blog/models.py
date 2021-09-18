@@ -65,6 +65,10 @@ class Post(models.Model):
         return reverse("blog:post_detail", args=[self.published.year,
         self.published.month,self.published.day,self.slug])
 
+    #for custome tag
+    def show(self):
+        return self.title    
+
 
 #comment for post
 class Comment(models.Model):
@@ -94,6 +98,10 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"comment by {self.name} on {self.post} "
+
+    #for custome tag
+    def show(self):
+        return self.body    
             
 
 
