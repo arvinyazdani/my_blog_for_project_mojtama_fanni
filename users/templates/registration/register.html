@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<form action="{% url 'users:register_profile'%}" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button name="submit" >register_profile</button>
+    <input type="hidden" name="next" value="{% url 'blog:post_list' %}">
+    </form>
+
+{% endblock content %}

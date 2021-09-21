@@ -16,7 +16,7 @@
 <a href="{% url 'blog:post_list_by_tag' tag.slug %}">{{tag.name}}</a>
 {% if not forloop.last %}, {% endif %}
 {% endfor %}
-<p><img src="{{post.image.url}}" alt="image"></p>
+<p><img src={{post.image.url}} loading="lazy"></p>
 <p>{{ post.body|markdown|truncatewords:30 }}</p>
 <p>{{post.created_at}}</p>
 <p>{{post.author}}</p>

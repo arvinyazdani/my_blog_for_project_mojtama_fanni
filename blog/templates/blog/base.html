@@ -1,5 +1,20 @@
 
 {% load blog_tags %}
+<p>
 <h2><a href="{% url 'blog:post_list' %}">my_weblog</a></h2>
+{% if user.is_authenticated %}
+<span >Hello , {{user.username}}</span>
+<a  href="{% url 'users:logout' %}">Log out</a>
+<a  href="{% url 'users:profile' user.id %}">profile</a>
 
+
+{% else %}
+                
+<a  href="{% url 'users:login' %}">login</a> 
+<a  href="{% url 'users:register' %}">Register</a> 
+                
+{% endif %}
+
+
+</p>
 {% block content %}{% endblock content %}

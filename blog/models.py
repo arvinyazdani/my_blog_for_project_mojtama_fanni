@@ -19,19 +19,7 @@ class PublishedManager(models.Manager):
         return super(PublishedManager,self).get_queryset()\
             .filter(status='published')
 
-#model profile for user
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    created_at = models.DateField(auto_now_add=True)
-    sen = models.SmallIntegerField()
-    id_number = models.CharField(max_length=10)
-    phone = models.CharField(max_length=11)
-    bio = models.TextField(blank=True)
-    gener = models.BooleanField()
-    is_writor = models.BooleanField()
-    file_resome = models.FileField(upload_to="blog/files")
 
-    
 
 #model post
 class Post(models.Model):

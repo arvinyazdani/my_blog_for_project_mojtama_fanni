@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<ul>
+    
+    <li>
+        {{user.username}}
+    </li>
+    <li>
+        {{profile.id}}
+    </li>
+    <li>
+        {{profile.phone}}
+    </li>
+    <li>
+        {{profile.created_at}}
+    </li>
+
+</ul>
+
+<p><a href="{% url 'users:edite_profile' user.id %}">edite profile</a></p>
+
+{% endblock content %}
