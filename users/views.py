@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
 
 
 def register(request):
@@ -20,7 +21,7 @@ def register(request):
             return redirect('blog:post_list')
     context = {"form":form}
     return render(request, "registration/register.html", context)
-
+@login_required
 def profile_register(request,user_id):
     user = User.objects.get(id=user_id)
     if request.method != "POST":   
@@ -69,6 +70,7 @@ def register_full(request,user_id=None,step=None):
 #aval user register shavad badesh profile
 
 '''
+@login_required
 def profile(request,user_id):
     user = User.objects.get(id=user_id)
     try:
@@ -77,7 +79,7 @@ def profile(request,user_id):
         return redirect("users:register_profile", user_id=user_id)    
     context = {"user":user,"profile":profile}
     return render(request, "profile.html", context)
-
+@login_required
 def edite_profile(request, user_id):
     user = User.objects.get(id=user_id)
     profile = user.profile

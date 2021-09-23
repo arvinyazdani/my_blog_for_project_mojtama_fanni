@@ -1,5 +1,6 @@
 {% extends 'blog/base.html' %}
 {% load blog_tags %}
+{% block title %}detail_{{post.title}}{% endblock title %}
 {% block content %}
 <h2>
       <a href="{{ post.get_absolute_url }}">
@@ -17,7 +18,7 @@ there are no similar post yet
 {% endfor %}
 
 </p>
-<h3><p>{{post.created_at}}</p>
+<h3><p>{{post.creat}}</p>
 <p>{{post.author}}</p></h3>
 <p><img src="{{post.image}}" alt="image"></p>
 <p>{{ post.body|markdown }}</p>

@@ -26,15 +26,15 @@ class Post(models.Model):
 
     STATUS_CHOICES = (("draft","Draft"),("published","Published"),('isnotvalid','IsNotValid'))
     #fields
-    title = models.CharField(max_length=50)
-    body = models.TextField()
-    image = models.ImageField()
-    author = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
-    slug = models.CharField(max_length=300, unique_for_date='published')
-    creat = models.DateTimeField(auto_now_add=True)
-    update = models.DateTimeField(auto_now=True)
-    published = models.DateTimeField(default=timezone.now)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
+    title = models.CharField(max_length=50, verbose_name="موضوع")
+    body = models.TextField( verbose_name="بدنه")
+    image = models.ImageField( verbose_name="عکس")
+    author = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user), verbose_name="نویسنده")
+    slug = models.CharField(max_length=300, unique_for_date='published', verbose_name="پیوند یکتا")
+    creat = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد")
+    update = models.DateTimeField(auto_now=True, verbose_name="اپدیت")
+    published = models.DateTimeField(default=timezone.now, verbose_name="پابلیش")
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft", verbose_name="استاتوس")
     #tag manager
     tags = TaggableManager()
     #data base managers
@@ -43,7 +43,9 @@ class Post(models.Model):
 
     #more
     class Meta:
-        ordering = ("-published",)    
+        ordering = ("-published",) 
+        verbose_name = 'پست'
+        verbose_name_plural = 'پست ها'   
 
     #return class name
     def __str__(self):
@@ -55,7 +57,8 @@ class Post(models.Model):
 
     #for custome tag
     def show(self):
-        return self.title    
+        return self.title 
+           
 
 
 #comment for post
@@ -64,17 +67,17 @@ class Comment(models.Model):
     ('isnotvalid','IsNotValid'))
     #fields
     post = models.ForeignKey(Post, on_delete=models.CASCADE, 
-    related_name='comments')
+    related_name='comments', verbose_name="پست")
     name = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET(get_sentinel_user),
     )
-    email = models.EmailField()
-    creat_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
-    body = models.TextField()
+    email = models.EmailField(verbose_name="ایمیل")
+    creat_at = models.DateTimeField(auto_now_add=True,verbose_name="تاریخ ایجاد")
+    update_at = models.DateTimeField(auto_now=True, verbose_name="تاریخ اپدیت")
+    body = models.TextField( verbose_name="بدنه")
     status = models.CharField(max_length=10, choices=STATUS_CHOICES,\
-    default="draft")
+    default="draft", verbose_name="استاتوس")
 
     #data base managers
     objects = models.Manager()
@@ -83,6 +86,8 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ('-creat_at',)
+        verbose_name = 'نظر'
+        verbose_name_plural = 'نظرات'
 
     def __str__(self):
         return f"comment by {self.name} on {self.post} "

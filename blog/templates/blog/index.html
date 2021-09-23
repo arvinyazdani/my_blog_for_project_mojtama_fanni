@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+{% block title %}index{% endblock title %}
+{% block page-header %}
+{% load blog_tags %}
+
+<div class="jumbotron">
+    <h1 class="display-3">Track ypur post</h1>
+    <p class="lead">you can read our writers and share and make comment and tou can 
+    make to writer</p>
+    <hr class="my-2">
+    <p>More info</p> 
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="{% url 'users:register' %}" role="button">Register</a>
+    </p>
+</div>
+
+
+{% endblock page-header %}
+{% block content %}
+
+<div>
+    {% show_lastest_post_index 4 %}
+</div>
+
+{% endblock content %}

@@ -1,20 +1,60 @@
 
 {% load blog_tags %}
-<p>
-<h2><a href="{% url 'blog:post_list' %}">my_weblog</a></h2>
-{% if user.is_authenticated %}
-<span >Hello , {{user.username}}</span>
-<a  href="{% url 'users:logout' %}">Log out</a>
-<a  href="{% url 'users:profile' user.id %}">profile</a>
-
-
-{% else %}
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" >
+    {% block title %}{% endblock title %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 ">
+        <a class="navbar-brand"  href="{% url 'blog:index' %}">my_weblog</a>
+         <p>
+            <button class="navbar-toggler btn btn-primary" type="button" data-toggle="collapse" data-target="#contentId" aria-expanded="false"
+                    aria-controls="contentId" aria-label="toggler-navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </p>
+        <div class="collapse navbar-collapse" id="contentId">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blog:post_list' %}">List</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <span class="navbar-text">Hello , {{user.username}}</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:profile' user.id %}">profile</a> 
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+                    </li> 
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:login' %}">login</a> 
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:register' %}">Register</a> 
+                </li>
                 
-<a  href="{% url 'users:login' %}">login</a> 
-<a  href="{% url 'users:register' %}">Register</a> 
-                
-{% endif %}
-
-
-</p>
-{% block content %}{% endblock content %}
+                {% endif %}
+            </ul> 
+        </div>
+    </nav>
+    <main role="main" class="container">
+        <div class="pb-2 mb-2 border-bottom">
+            {% block page-header %}{% endblock page-header %}
+        </div>
+        <div>
+            {% block content %}{% endblock content %}
+        </div>
+    </main>
+</body>
+</html>

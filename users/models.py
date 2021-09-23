@@ -9,15 +9,23 @@ class Profile(models.Model):
     WRITOR_CHOICES = (("writer","Writer"),("reader","Reader"))
   
     user = models.OneToOneField(User ,\
-        on_delete=models.CASCADE, primary_key=True) 
-    created_at = models.DateField(auto_now_add=True)
-    sen = models.SmallIntegerField()
-    id_number = models.CharField(max_length=10)
-    phone = models.CharField(max_length=11)
-    bio = models.TextField(blank=True)
-    gener = models.CharField(max_length=10, choices=GENER_CHOICES)
+        on_delete=models.CASCADE, primary_key=True\
+            , verbose_name="کاربر") 
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایحاد", null=True, blank=True)
+    sen = models.SmallIntegerField( verbose_name="سن")
+    id_number = models.CharField(max_length=10, verbose_name="شماره ملی")
+    phone = models.CharField(max_length=11, verbose_name="تماس")
+    bio = models.TextField(blank=True, verbose_name="بیو")
+    gener = models.CharField(max_length=10, choices=GENER_CHOICES, verbose_name="جنسیت")
     is_writor = models.CharField(max_length=10, choices=WRITOR_CHOICES,\
-         default="reader")
-    file_resome = models.FileField(upload_to="users/files", blank=True,null=True) 
+         default="reader", verbose_name="ایا نویسنده")
+    file_resome = models.FileField(upload_to="users/files", blank=True,null=True, verbose_name="فایل رزومه") 
+
+    class Meta:
+        ordering = ('-created_at',)
+        verbose_name = 'کاربر'
+        verbose_name_plural = 'کاربران'
+
+
 
     

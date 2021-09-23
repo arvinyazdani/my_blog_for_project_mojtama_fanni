@@ -1,0 +1,19 @@
+<ul>
+    {% for obj in lastest_posts %}
+    
+    <li>
+    <h2><a href="{{obj.get_absolute_url}}">
+            <p>{{obj.show}}</p></a></h2>
+        
+            <p>{{ obj.body|truncatewords:30 }}</p>
+
+            
+
+        
+    
+    </li>
+    
+
+    
+    {% endfor %}
+</ul>

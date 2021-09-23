@@ -6,6 +6,7 @@ from django.core.paginator import Paginator, PageNotAnInteger,EmptyPage
 from .forms import EmailPostForm, CommentFrom
 from django.core.mail import send_mail
 from django.db.models import Count
+from django.contrib.auth.decorators import login_required
 
 #class base views
 '''
@@ -17,6 +18,11 @@ class PostListView(ListView):
     template_name = 'blog/post/list.html'
 '''
 #functions view
+def index(request):
+    return render(request, 'blog/index.html')
+
+
+@login_required
 def post_list(request,tag_slug=None):
     #published list
     objectt_list = Post.publishedmanager.all()
@@ -42,6 +48,7 @@ def post_list(request,tag_slug=None):
 
 
 #for detail page 
+@login_required
 def post_detail(request,year,month,day,post):
     post = get_object_or_404(Post,slug=post,status='published',\
         published__year=year,published__month=month,\
@@ -66,7 +73,7 @@ def post_detail(request,year,month,day,post):
                 'similar_post':similar_post}
     return render(request, 'blog/post/detail.html',context)
 
-
+@login_required
 def post_share(request,post_id):
     post = get_object_or_404(Post, id=post_id, status="published")
     send = False
